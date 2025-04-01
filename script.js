@@ -69,22 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Обработка клика по кнопке
     applyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (!this.classList.contains('disabled')) {
-                const productId = this.getAttribute('data-product');
-                const input = document.querySelector(`.link-input input[data-product="${productId}"]`);
-                const url = input.value.trim();
-                
-                if (url) {
-                    // Анимация нажатия
-                    this.classList.add('clicked');
-                    setTimeout(() => {
-                        this.classList.remove('clicked');
-                        
-                        // Переход по ссылке
-                        window.open(url, '_blank');
-                    }, 300);
-                }
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            if (url) {
+                window.open(url, '_blank');
             }
         });
     });
@@ -131,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Анимация при наведении на продукты
+    // Product hover animation
     products.forEach(product => {
         product.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-5px)';
@@ -141,18 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
         product.addEventListener('mouseleave', function() {
             this.style.transform = '';
             this.style.boxShadow = '';
-        });
-    });
-    
-    // Анимация при клике на кнопку
-    applyButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Добавляем эффект нажатия
-            this.style.transform = 'scale(0.98)';
-            
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
         });
     });
 }); 
